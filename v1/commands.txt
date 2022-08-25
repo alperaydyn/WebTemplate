@@ -1,0 +1,88 @@
+// ********************* ENVIRONMENT ********************
+// create environment
+python3 -m venv edu
+
+// activate environment
+source edu/bin/activate
+
+// install packages
+cd edu
+(edu) % python3 -m pip install --upgrade pip
+(edu) % pip install -r requirements.txt   
+(edu) % pip3 freeze > requirements.txt
+
+(edu) % pip3 install ipykernel
+(edu) % ipython kernel install --user --name=edu
+
+// ********************* HEROKU ***********************
+
+// install heroku
+brew tap heroku/brew && brew install heroku
+
+heroku login -i
+    alperaydyn@gmail.com
+    Heroku123!
+heroku git:remote -a vbo-homecredit
+heroku labs:enable runtime-dyno-metadata -a vbo-homecredit
+
+// ********************* GIT ***********************
+
+git init
+git add .
+git commit -am "explanation for commmit"
+git push heroku master
+heroku logs --tail
+
+// ********************* CREATE *************************
+
+// navigate to the folder
+cd /Users/alperaydin/Documents/Learning/DSMLBC/Projects/
+
+
+
+// set flask folders & files
+hc3 % mkdir app
+hc3 % cd app
+app % vi main.py
+app % cd ../
+hc3 % vi wsgi.py
+
+// start server
+hc3 % python wsgi.py
+
+// save requirements
+hc3 % pip list --format=freeze > requirements.txt
+
+// create Procfile
+hc3 % vi Procfile
+    > web gunicorn wsgi:app
+
+// login heroku
+hc3 % heroku login -i
+    > email
+    > password
+
+// init git
+hc3 % git init
+
+// create remote project
+hc3 % heroku git:remote -a vbo-homecredit
+hc3 % heroku labs:enable runtime-dyno-metadata -a vbo-homecredit
+
+// add current folder to git
+hc3 % git add .
+
+// commit all
+git commit -am "Home Credit python web app"
+
+// push master
+git push heroku master
+
+
+// view logs
+heroku logs --tail
+
+
+
+/ https://dev.to/techparida/how-to-deploy-a-flask-app-on-heroku-heb
+
