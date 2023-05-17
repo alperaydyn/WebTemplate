@@ -5,6 +5,7 @@ Works need to be done:
   * Email verification
   * Forgot password email reset
   * Wrong login attempt counter and account suspention
+  * Privacy Policy, Terms of Use
 * Account panel (inside sign.html)
   * Remove account
   * Change password
