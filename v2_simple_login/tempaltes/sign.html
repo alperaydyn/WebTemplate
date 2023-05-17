@@ -1,0 +1,230 @@
+<head>
+    <style>
+        :root {
+        --color1: #a46486;
+        --color2: #fff;
+        --alternative-colors: [#a43456];
+        --back-color: var(--color2);
+        --button-face: var(--color1);
+        --button-font-color: var(--color2);
+        --font-color: var(--color1);
+        --border-color: var(--color1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: var(--back-color);
+            color: var(--font-color);
+            font-family: "ColfaxAI",-apple-system,BlinkMacSystemFont,Helvetica,sans-serif;
+        }
+
+        .main-container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+        }
+
+        .container {
+            width: 400px;
+            height: 450px;
+            border-radius: 5px;
+            box-shadow: 0 6px 24px rgba(179, 179, 179, 0.5);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        form {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            padding: 0px !important;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            justify-content: space-evenly;
+        }
+
+        a {
+            text-decoration: none;
+            cursor: pointer;
+            color: var(--text-color);
+            opacity: 0.5;
+        }
+
+        a:focus,
+        a:hover {
+            font-weight: bold;
+            opacity: 1;
+        }
+
+        .input {
+        position: relative;
+        }
+
+        .input input,
+        .login-btn {
+            width: 260px;
+            height: 45px;
+            outline: none;
+            padding: 0 0.7rem;
+            border-radius: 3px;
+            transition: 0.2s;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .login-btn {
+            border: 1px solid var(--border-color);
+            background: var(--button-face);
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--button-font-color);
+        }
+
+        .login-btn:focus,
+        .login-btn:hover {
+            border: 1px solid var(--border-color);
+            transition: background-color .25s ease-in-out,box-shadow .25s ease-in-out;
+        }
+
+        .input label {
+            position: absolute;
+            top: 28%;
+            left: 10px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            padding: 0 0.1rem;
+        }
+
+        .input input {
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .input input:focus {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input input:focus ~ label,
+        .input input:valid ~ label {
+            transform: translateY(-25px);
+            font-size: 15px;
+            border-bottom: 1px solid var(--back-color);
+        }
+        
+        hr{
+            height: 1px;
+            background-color: var(--border-color);
+            border: none;
+            width:80%;
+        }
+        
+        .small {font-size:10pt;}
+    </style>
+</head>
+<body>
+    <div class="main-container">
+      <div class="container">
+        <div>
+          {% if (method=="login" or method=="") %}  
+          <form action="login" method="post">
+              <center><h1>Welcome</h1></center>
+              <div class="input">
+                <input type="text" name="username" id="username" required title="Please enter your Username here" />
+                <label for="username">Username</label>
+              </div>
+
+              <div class="input">
+                <input type="password" name="password" id="password" required title="Please enter your Password here" />
+                <label for="password">Password</label>
+              </div>
+
+              <input type="submit" value="Login" class="login-btn" />
+              <span class="small"><a href="{{url_for('forgot_password')}}">Forgot Password?</a> - <a href="/register">Sign up</a></span>
+              <hr/>
+
+              <span class="small">&nbsp;{{message|safe}}</span>
+          </form>
+            
+            
+          {% elif method=="register" %}
+          <form action="register" method="post">
+              <center><h1>Create your account</h1></center>
+              <div class="input">
+                <input type="text" name="username" id="username" required title="Please enter your Username here" />
+                <label for="username">Username</label>
+              </div>
+
+              <div class="input">
+                <input type="password" name="password" id="password" required title="Please enter your Password here" />
+                <label for="password">Password</label>
+              </div>
+
+              <input type="submit" value="Sign Up" class="login-btn" />
+              <span class="small"><a href="{{url_for('forgot_password')}}">Forgot Password?</a> - <a href="{{url_for('login')}}">Sign in</a></span>
+              <hr/>
+
+              <span class="small">&nbsp;{{message|safe}}</span>
+          </form>
+            
+            
+          {% elif method=="logged-in" %}
+          <form action="login" method="post">
+              <center><h1>Login Successfull</h1></center>
+              <span class="small"><a href="{{url_for('logout')}}">Sign out</a></span>
+              <hr/>
+              <span class="small"><a href="{{redirect_to}}">redirecting...</a></span>
+              <script>
+                window.setTimeout( function(){
+                     window.location = "{{redirect_to}}";
+                 }, 1000 );                  
+              </script>
+          </form>
+            
+            
+          {% elif method=="forgot_password" %}
+          <form action="reset_password" method="post">
+              <center>
+                  <h1>Forgot Password?</h1><p><br/>
+                  <span>Write your username to receive the instructions.</span>
+              </center>
+              <div class="input">
+                <input type="text" name="username" id="username" required title="Please enter your Username here" />
+                <label for="username">Username</label>
+              </div>
+
+              <input type="submit" value="Submit" class="login-btn" />
+              <span class="small"><a href="{{url_for('login')}}">Sign in</a></span>
+              <hr/>
+
+              <span class="small">&nbsp;{{message|safe}}</span>
+          </form>
+            
+            
+          {% elif method=="reset_password" %}
+          <form action="login" method="post">
+              <center>
+                  <h1>Reset link submitted</h1><p><br/>
+                  <span class="small">Check your email address and follow the instructions.</span>
+              </center>
+              <span class="small"><a href="{{url_for('logout')}}">Sign in</a></span>
+              <hr/>
+              <span class="small">&nbsp;{{message|safe}}</span>
+          </form>
+            
+            
+          {% else %}
+            <center>
+              <span class="small">/{{method}}/</span>
+              <span class="small">&nbsp;{{message|safe}}</span>
+            </center>
+          {% endif %}
+          </div>
+        </div>
+    </div>
+</body>
