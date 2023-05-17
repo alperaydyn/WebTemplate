@@ -31,7 +31,7 @@
         }
 
         .container {
-            width: 400px;
+            width: 500px;
             height: 450px;
             border-radius: 5px;
             box-shadow: 0 6px 24px rgba(179, 179, 179, 0.5);
@@ -145,7 +145,11 @@
               </div>
 
               <input type="submit" value="Login" class="login-btn" />
-              <span class="small"><a href="{{url_for('forgot_password')}}">Forgot Password?</a> - <a href="/register">Sign up</a></span>
+              <span class="small">
+                  <a href="{{url_for('forgot_password')}}">Forgot Password?</a> - 
+                  <a href="/register">Sign up</a> - 
+                  <a href="/">Home</a>
+              </span> 
               <hr/>
 
               <span class="small">&nbsp;{{message|safe}}</span>
@@ -190,7 +194,7 @@
           {% elif method=="forgot_password" %}
           <form action="reset_password" method="post">
               <center>
-                  <h1>Forgot Password?</h1><p><br/>
+                  <h1>Forgot Password?</h1><p/><br/>
                   <span>Write your username to receive the instructions.</span>
               </center>
               <div class="input">
@@ -209,11 +213,35 @@
           {% elif method=="reset_password" %}
           <form action="login" method="post">
               <center>
-                  <h1>Reset link submitted</h1><p><br/>
+                  <h1>Reset link submitted</h1><p/><br/>
                   <span class="small">Check your email address and follow the instructions.</span>
               </center>
               <span class="small"><a href="{{url_for('logout')}}">Sign in</a></span>
               <hr/>
+              <span class="small">&nbsp;{{message|safe}}</span>
+          </form>
+            
+          {% elif method=="change_password" %}
+          <form action="login" method="post">
+              <center>
+                  <h1>Change Password</h1><p/><br/>
+                  <span class="small">Please enter your new password</span>
+              </center>
+              
+              <div class="input">
+                <input type="password" name="password" id="password" required title="Please enter your password here" />
+                <label for="password">New Password</label>
+              </div>
+
+              <div class="input">
+                <input type="password" name="password2" id="password2" required title="Please enter your password here" />
+                <label for="password2">New Password Again</label>
+              </div>
+
+              <input type="submit" value="Submit" class="login-btn" />
+              <span class="small"><a href="{{url_for('login')}}">Sign in</a></span>
+              <hr/>
+
               <span class="small">&nbsp;{{message|safe}}</span>
           </form>
             
