@@ -1,0 +1,12 @@
+Flask==2.2.3
+Flask-Session==0.4.0
+flask_sqlalchemy==3.0.3
+flask_login==0.6.2
+gunicorn==20.1.0
+selenium==4.9.1
+webdriver_manager==3.8.6
+beautifulsoup4==4.12.0
+
+pandas==1.5.3
+numpy==1.22.3
+matplotlib==3.4.3
